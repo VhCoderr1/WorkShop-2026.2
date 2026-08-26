@@ -1,0 +1,81 @@
+CREATE SCHEMA desafio;
+
+USE desafio;
+
+CREATE TABLE regioes(
+ id_regiao INT(10),
+ nome VARCHAR(90) NOT NULL,
+ estado VARCHAR(40) NOT NULL,
+ potencial VARCHAR(50) NOT NULL,
+ 
+ PRIMARY KEY (id_regiao)
+);
+
+CREATE TABLE usinas(
+ id_usina INT(10),
+ nome VARCHAR(100) NOT NULL,
+ cnpj VARCHAR(14) NOT NULL,
+ capacidade_producao FLOAT NOT NULL,
+ id_regiao INT(10),
+ 
+ PRIMARY KEY (id_usina),
+ FOREIGN KEY (id_regiao)
+  REFERENCES regioes(id_regiao)
+);
+
+CREATE TABLE geracao(
+ id_geracao INT(10),
+ qtd_gerada FLOAT NOT NULL,
+ horas_operadas FLOAT NULL,
+ id_usina INT(10),
+
+ PRIMARY KEY (id_geracao),
+ FOREIGN KEY (id_usina)
+  REFERENCES usinas(id_usina)
+);
+
+INSERT INTO regioes
+(id_regiao, nome, estado, potencial)
+VALUES
+ (1, 'Norte', 'Amapá', 'Alto'),
+ (2, 'Norte', 'Pará', 'Muito alto'),
+ (3, 'Sul', 'Santa Catarina', 'Alto'),
+ (4, 'Sul', 'Paraná', 'Muito alto'),
+ (5, 'Centro-Oeste', 'Mato Grosso', 'Muito alto'),
+ (6, 'Nordeste', 'Maranhão', 'Alto'),
+ (7, 'Norte', 'Tocantins', 'Alto'),
+ (8, 'Sudeste', 'Minas Gerais', 'Muito alto'),
+ (9, 'Sudeste', 'São Paulo', 'Alto'),
+ (10, 'Centro-Oeste', 'Goiás', 'Alto');
+
+INSERT INTO usinas
+(id_usina, nome, cnpj, capacidade_producao, id_regiao)
+VALUES
+ (1, 'Ferreira Gomes', '00000000000101', 252, 1),
+ (2, 'Santo Antônio do Jari', '00000000000102', 393, 2),
+ (3, 'Salto Pilão', '00000000000103', 192, 3),
+ (4, 'Mauá', '00000000000104', 361, 4),
+ (5, 'Baixo Iguaçu', '00000000000105', 350, 4),
+ (6, 'Colíder', '00000000000106', 300, 5),
+ (7, 'Sinop', '00000000000107', 400, 5),
+ (8, 'Estreito', '00000000000108', 1087, 6),
+ (9, 'São Manoel', '00000000000109', 700, 5),
+ (10, 'São Roque', '00000000000110', 141, 3);
+
+INSERT INTO geracao
+(id_usina, qtd_gerada, horas_operadas, id_usina)
+VALUES
+ (1, 245, 720, 1),
+ (2, 380, 700, 2),
+ (3, 175, 680, 3),
+ (4, 340, 710, 4),
+ (5, 325, 690, 5),
+ (6, 280, 705, 6),
+ (7, 365, 715, 7),
+ (8, 950, 720, 8),
+ (9, 620, 700, 9),
+ (10, 130, 675, 10);
+
+
+
+
